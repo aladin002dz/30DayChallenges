@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 
 const connectdb = require("./db_connection");
 
-const productsRoutes = require("./routes/products");
+const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 const path = require("path");
 
@@ -28,7 +28,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.use("/api/products", productsRoutes);
+app.use("/api/posts", postsRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/images", express.static(path.join(__dirname, "images")));
 

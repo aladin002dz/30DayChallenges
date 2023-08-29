@@ -1,6 +1,6 @@
 # SharekMedia
 
-Expressjs Web Api
+A social media network made in Expressjs Web Api
 
 - Database engine used is **SQLite**, the file `data.db`.
 - Passwords encryption use the library **bcrypt**.

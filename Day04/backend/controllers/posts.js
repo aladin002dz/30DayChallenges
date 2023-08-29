@@ -2,7 +2,7 @@ const connectdb = require("../db_connection");
 const fs = require("fs");
 
 exports.getAllPosts = (req, res, next) => {
-  let db = connectdb();
+  //let db = connectdb();
   console.log("getting all posts!");
 
   db.all("SELECT * FROM posts", (err, rows) => {
@@ -17,18 +17,20 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
-  let db = connectdb();
-  console.log(req.body);
-  postData = JSON.parse(req.body.postData);
-  let imageUrl = "";
-  if (req.files[0]) {
-    imageUrl = `${req.protocol}://${req.get("host")}/images/${req.files[0].filename
-      }`;
-  }
-
-  let sql = `INSERT INTO posts (content, imgUrl) VALUES ( '${postData.content}', '${imageUrl}')`;
-
   try {
+    //let db = connectdb();
+    console.log(req.body);
+    postData = JSON.parse(req.body.postData);
+    console.log(postData);
+    let imageUrl = "";
+    console.log("getting image");
+    if (req.files[0]) {
+      imageUrl = `${req.protocol}://${req.get("host")}/images/${req.files[0].filename
+        }`;
+    }
+    let sql = `INSERT INTO posts (content, imgUrl) VALUES ( '${postData.content}', '${imageUrl}')`;
+    console.log("inserting");
+
     db.run(sql);
     console.log("Post successfully added!");
     res.status(200).json("Post successfully added!");
