@@ -27,7 +27,7 @@ function displayPosts(posts) {
                 `<figure class="h-[16rem]">
                     <img class="h-full w-full object-cover object-center"
                         src="${baseURL + post.imgUrl}"
-                        alt="Shoes" />
+                        alt="post picture" />
                  </figure>` :
                 ``
             }
