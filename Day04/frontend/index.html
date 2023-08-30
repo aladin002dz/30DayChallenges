@@ -11,6 +11,16 @@
 
 <body>
     <main class="container mx-auto max-w-[50%] my-6 min-h-[calc(100vh-150px)]">
+        <div class="card mb-8 bg-base-100 shadow-xl">
+            <form class="card-body" id="add-post">
+                <input id="inputTxtContent" type="text" placeholder="Type here"
+                    class="input input-bordered w-full max-w-xs" />
+                <input id="inputImage" type="file" class="file-input w-full max-w-xs" />
+                <div class="flex justify-end">
+                    <button class="btn btn-primary" type="submit">Post</button>
+                </div>
+            </form>
+        </div>
         <!--
         <div class="card w-full h-[25rem] bg-base-100 shadow-xl mb-6">
             <figure class="h-2/3"><img class="h-full w-full object-cover object-center"

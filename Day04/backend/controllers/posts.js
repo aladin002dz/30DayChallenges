@@ -17,6 +17,7 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.createPost = (req, res, next) => {
   try {
+    console.log("creating post");
     let db = connectdb();
     console.log(req.body);
     postData = JSON.parse(req.body.postData);
