@@ -4,8 +4,8 @@
   "description": "Express Web Api",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon run index.js",
-    "start": "node run index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

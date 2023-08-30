@@ -1,4 +1,4 @@
-/*const multer = require("multer");
+const multer = require("multer");
 
 const MIME_TYPES = {
   "image/jpg": "jpg",
@@ -19,7 +19,8 @@ const storage = multer.diskStorage({
 });
 
 module.exports = multer({ storage: storage }).array("myfile");
-*/
+
+/*
 const multer = require("multer");
 const path = require("path");
 
@@ -37,3 +38,4 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 module.exports = upload.array("myfile");
+*/

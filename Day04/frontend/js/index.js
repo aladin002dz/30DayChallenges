@@ -7,7 +7,10 @@ function main() {
 function handleDisplayPosts() {
     fetch('http://localhost:3001/api/posts')
         .then(res => res.json())
-        .then(post => displayPosts(post))
+        .then(posts => {
+            console.log(posts);
+            displayPosts(posts)
+        })
         .catch(err => console.log(err));
 }
 
@@ -17,10 +20,12 @@ function displayPosts(posts) {
         const postDiv = document.createElement('div');
         postDiv.className = 'card w-full max-h-[25rem] bg-base-100 shadow-xl mb-6';
         postDiv.innerHTML = `
-        ${post.imagUrl ?
-                `<figure class="h-[16rem]"><img class="h-full w-full object-cover object-center"
-                    src="${post.imagUrl}"
-                    alt="Shoes" /></figure>` :
+        ${post.imgUrl ?
+                `<figure class="h-[16rem]">
+                    <img class="h-full w-full object-cover object-center"
+                        src="${post.imgUrl}"
+                        alt="Shoes" />
+                 </figure>` :
                 ``
             }
         <div class="card-body max-h-[9rem]">
