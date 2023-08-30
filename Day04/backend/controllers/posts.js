@@ -2,9 +2,8 @@ const connectdb = require("../db_connection");
 const fs = require("fs");
 
 exports.getAllPosts = (req, res, next) => {
-  //let db = connectdb();
+  let db = connectdb();
   console.log("getting all posts!");
-
   db.all("SELECT * FROM posts", (err, rows) => {
     if (err) {
       res.status(400).json({
@@ -18,7 +17,7 @@ exports.getAllPosts = (req, res, next) => {
 
 exports.createPost = (req, res, next) => {
   try {
-    //let db = connectdb();
+    let db = connectdb();
     console.log(req.body);
     postData = JSON.parse(req.body.postData);
     console.log(postData);
@@ -34,13 +33,14 @@ exports.createPost = (req, res, next) => {
     db.run(sql);
     console.log("Post successfully added!");
     res.status(200).json("Post successfully added!");
+    db.close();
   } catch (err) {
     res.status(400).json({
       error: err.message,
     });
   }
 
-  db.close();
+
 };
 
 exports.modifyPost = (req, res, next) => { };
