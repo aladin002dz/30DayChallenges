@@ -1,3 +1,6 @@
+
+const baseURL = "https://sharek-media.onrender.com/api/posts";//for production
+//const baseURL = "http://localhost:3001/api/posts";//for development (localy)
 main();
 function main() {
     handleDisplayPosts();
@@ -5,7 +8,7 @@ function main() {
 }
 
 function handleDisplayPosts() {
-    fetch('http://localhost:3001/api/posts')
+    fetch(baseURL)
         .then(res => res.json())
         .then(posts => {
             console.log(posts);
@@ -55,7 +58,7 @@ function handleAddPost() {
         postInfo.append("postData", JSON.stringify(postData));
         postInfo.append("myfile", selectedImage);
 
-        fetch("http://localhost:3001/api/posts", {
+        fetch(baseURL, {
             method: "post",
             /*     headers: {
               Authorization: `Bearer ${user.token}`,
