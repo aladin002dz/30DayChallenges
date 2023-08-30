@@ -25,7 +25,7 @@ exports.createPost = (req, res, next) => {
     let imageUrl = "";
     console.log("getting image");
     if (req.files[0]) {
-      imageUrl = `${req.protocol}://${req.get("host")}/images/${req.files[0].filename
+      imageUrl = `/images/${req.files[0].filename
         }`;
     }
     let sql = `INSERT INTO posts (content, imgUrl) VALUES ( '${postData.content}', '${imageUrl}')`;

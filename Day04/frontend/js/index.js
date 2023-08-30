@@ -1,6 +1,6 @@
 
-const baseURL = "https://sharek-media.onrender.com/api/posts";//for production
-//const baseURL = "http://localhost:3001/api/posts";//for development (localy)
+const baseURL = "https://sharek-media.onrender.com";//for production
+//const baseURL = "http://localhost:3001";//for development (localy)
 main();
 function main() {
     handleDisplayPosts();
@@ -8,7 +8,7 @@ function main() {
 }
 
 function handleDisplayPosts() {
-    fetch(baseURL)
+    fetch(baseURL + "/api/posts")
         .then(res => res.json())
         .then(posts => {
             console.log(posts);
@@ -26,7 +26,7 @@ function displayPosts(posts) {
         ${post.imgUrl ?
                 `<figure class="h-[16rem]">
                     <img class="h-full w-full object-cover object-center"
-                        src="${post.imgUrl}"
+                        src="${baseURL + post.imgUrl}"
                         alt="Shoes" />
                  </figure>` :
                 ``
@@ -58,7 +58,7 @@ function handleAddPost() {
         postInfo.append("postData", JSON.stringify(postData));
         postInfo.append("myfile", selectedImage);
 
-        fetch(baseURL, {
+        fetch(baseURL + "/api/posts", {
             method: "post",
             /*     headers: {
               Authorization: `Bearer ${user.token}`,
