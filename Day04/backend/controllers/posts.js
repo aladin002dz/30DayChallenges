@@ -34,7 +34,7 @@ exports.createPost = (req, res, next) => {
     db.run(sql);
     console.log("Post successfully added!");
     res.status(200).json("Post successfully added!");
-    db.close();
+    //db.close();
   } catch (err) {
     res.status(400).json({
       error: err.message,
@@ -45,11 +45,12 @@ exports.createPost = (req, res, next) => {
 };
 /*
 exports.modifyPost = (req, res, next) => { };
-
+*/
 exports.deletePost = (req, res, next) => {
-  const _id = req.params.id;
-  let sql = `SELECT * FROM posts WHERE id = ${_id};`;
-  connectdb.query(sql, function (err, resultsOnePost, fields) {
+  const id = req.params.id;
+  let db = connectdb();
+  let sql = `SELECT * FROM posts WHERE id = ${id};`;
+  db.all(sql, function (err, resultsOnePost, fields) {
     if (err)
       res.status(400).json({
         error: err,
@@ -59,35 +60,15 @@ exports.deletePost = (req, res, next) => {
     try {
       const filename = resultsOnePost[0].imgUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
-        sql = `DELETE FROM posts WHERE posts.id = ${_id}`;
-        connectdb.query(sql, function (err, result, fields) {
-          if (err) res.status(400).json({ message: err });
-          console.log("post deleted");
-          let sql = "SELECT * FROM posts";
-          connectdb.query(sql, function (errGetAll, resultGetAll, fields) {
-            if (errGetAll)
-              res.status(400).json({
-                error: errGetAll,
-              });
-            res.status(200).json(resultGetAll);
-          });
-        });
-      });
+        sql = `DELETE FROM posts WHERE posts.id = ${id}`;
+        db.run(sql);
+        res.status(200).json({ message: "Post deleted!" });
+      })
     } catch (err) {
-      sql = `DELETE FROM posts WHERE posts.id = ${_id}`;
-      connectdb.query(sql, function (err, result, fields) {
-        if (err) res.status(400).json({ message: err });
-        console.log("post deleted");
-        let sql = "SELECT * FROM posts";
-        connectdb.query(sql, function (errGetAll, resultGetAll, fields) {
-          if (errGetAll)
-            res.status(400).json({
-              error: errGetAll,
-            });
-          res.status(201).json(resultGetAll);
-        });
-      });
+      sql = `DELETE FROM posts WHERE posts.id = ${id}`;
+      db.run(sql)
+      res.status(200).json({ message: "Post deleted!" });
     }
   });
+  //db.close();
 };
-*/

@@ -1,82 +1,43 @@
 
 const baseURL = "https://sharek-media.onrender.com";//for production
 //const baseURL = "http://localhost:3001";//for development (localy)
+
+import handleAddPost from './HandleAddPost.js';
+import handleDisplayPosts from './HandleDisplayPosts.js';
+
 main();
-function main() {
-    handleDisplayPosts();
-    handleAddPost();
+async function main() {
+    await handleDisplayPosts(baseURL);
+    handleDeletePost(baseURL);
+    handleAddPost(baseURL);
 }
 
-function handleDisplayPosts() {
-    fetch(baseURL + "/api/posts")
-        .then(res => res.json())
-        .then(posts => {
-            console.log(posts);
-            displayPosts(posts)
-        })
-        .catch(err => console.log(err));
-}
+function handleDeletePost(baseURL) {
+    console.log("Deleting posts");
+    const btnsDelete = document.querySelectorAll(".btn-delete");
+    console.log(btnsDelete);
+    btnsDelete.forEach(btn => {
+        btn.addEventListener("click", deletePost);
+    });
 
-function displayPosts(posts) {
-    const postContainer = document.querySelector('#posts');
-    posts.forEach(post => {
-        const postDiv = document.createElement('div');
-        postDiv.className = 'card w-full max-h-[25rem] bg-base-100 shadow-xl mb-6';
-        postDiv.innerHTML = `
-        ${post.imgUrl ?
-                `<figure class="h-[16rem]">
-                    <img class="h-full w-full object-cover object-center"
-                        src="${baseURL + post.imgUrl}"
-                        alt="post picture" />
-                 </figure>` :
-                ``
-            }
-        <div class="card-body max-h-[9rem]">
-            <p>${post.content}</p>
-            <div class="card-actions justify-end">
-                <button class="btn btn-outline btn-info btn-disabled"  disabled="disabled">Edit</button>
-            </div>
-        </div>
-    `;
-        postContainer.appendChild(postDiv);
-    })
-}
-
-function handleAddPost() {
-    document.querySelector("#add-post").addEventListener("submit", addPost);
-
-    function addPost(e) {
-        console.log("Add post");
-        e.preventDefault();
-        const txtContent = document.getElementById("inputTxtContent").value;
-        const selectedImage = document.getElementById("inputImage").files[0];
-        const postData = {
-            content: txtContent,
-        };
-
-        const postInfo = new FormData();
-        postInfo.append("postData", JSON.stringify(postData));
-        postInfo.append("myfile", selectedImage);
-
-        fetch(baseURL + "/api/posts", {
-            method: "post",
-            /*     headers: {
-              Authorization: `Bearer ${user.token}`,
-            }, */
-            body: postInfo,
+    function deletePost() {
+        console.log("Delete post");
+        const postDiv = this.closest(".card");
+        //const id = postDiv.getAttribute("data-id");
+        const id = postDiv.dataset.id;
+        fetch(baseURL + "/api/posts/" + id, {
+            method: "delete",
         })
             .then((reponse) => {
                 console.log("Response: ");
                 console.log(reponse);
                 if (reponse.ok) {
-                    alert("Product successfully Added!");
-                    //location.reload();
+                    alert("Product successfully Deleted!");
+                    location.reload();
                 } else {
-                    alert("Error Adding product!");
+                    alert("Error Deleting post!");
                 }
             })
             .catch(err => console.log(err));
     }
 }
-
-
