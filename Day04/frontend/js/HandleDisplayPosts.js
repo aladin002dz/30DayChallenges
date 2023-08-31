@@ -27,7 +27,6 @@ function displayPosts(posts, baseURL) {
         <div class="card-body max-h-[9rem]">
             <p>${post.content}</p>
             <div class="card-actions justify-end">
-                <button class="btn btn-outline btn-warning btn-edit"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button class="btn btn-outline btn-error btn-delete"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
